@@ -1,0 +1,55 @@
+<resources>
+    <!-- Examples -->
+    <string-array name="drinks_array">
+        <item>Cups of coffee</item>
+        <item>Glasses of water</item>
+        <item>Tequila shots</item>
+        <item>Caipirinhas</item>
+    </string-array>
+    <string-array name="food_array">
+        <item>Hot-dogs</item>
+        <item>Cupcakes eaten</item>
+        <item>Chicken sandwich</item>
+    </string-array>
+    <string-array name="misc_array">
+        <item>Times sneezed</item>
+        <item>Naps</item>
+        <item>Day dreaming</item>
+    </string-array>
+
+    <!-- Others -->
+    <string name="app_name">Counters Test</string>
+    <string name="welcome_title">Counters</string>
+    <string name="welcome_description">Capture cups of lattes, frapuccinos, or anything else that can be counted.</string>
+    <string name="get_started">Get started</string>
+    <string name="no_counters">No counters yet</string>
+    <string name="no_results">No results</string>
+    <string name="no_counters_phrase">“When I started counting my blessings, my whole life turned around.”
+—Willie Nelson</string>
+    <string name="search_counters">Search Counters</string>
+    <string name="add_counters">Add counters</string>
+    <string name="n_items">%d items</string>
+    <string name="n_times">%d times</string>
+    <string name="n_selected">%d selected</string>
+    <string name="error_load_counters_title">Couldn’t load the counters</string>
+    <string name="error_creating_counter_title">Couldn’t create the counter</string>
+    <string name="error_updating_counter_title">Couldn’t update the “%s” counter to %d</string>
+    <string name="error_deleting_counter_title">Couldn’t delete the counter</string>
+    <string name="connection_error_description">The Internet connection appears to be offline.</string>
+    <string name="generic_error_description">There has been a problem.</string>
+    <string name="retry">Retry</string>
+    <string name="save">Save</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="share">Share</string>
+    <string name="examples">Examples</string>
+    <string name="examples_description">Select an example to add it to your counters.</string>
+    <string name="delete">Delete</string>
+    <string name="create_counter">Create counter</string>
+    <string name="counter_name_label">Name</string>
+    <string name="counter_name_hint">Cups of coffee</string>
+    <string name="create_counter_disclaimer">Give it a name. Creative block? See examples.</string>
+    <string name="delete_x_question">Delete "%s"?</string>
+    <string name="n_per_counter_name">%d × %s</string>
+</resources>
