@@ -1,2 +1,7 @@
-include ':app'
 rootProject.name = "Counters Test"
+include ':app'
+include ':data'
+include ':presentation'
+include ':localdatasource'
+include ':remotedatasource'
+include ':domain'
