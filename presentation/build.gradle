@@ -50,9 +50,17 @@ dependencies {
     implementation Dependencies.koinAndroid
     implementation Dependencies.koinViewModel
 
+    // Lifecycle
+    implementation Dependencies.lifecycleLivedata
+    implementation Dependencies.lifecycleViewModel
+    implementation Dependencies.lifecycleRuntime
+
     // UI
     implementation Dependencies.material
     implementation Dependencies.constraintLayout
+    implementation Dependencies.navigationFragment
+    implementation Dependencies.navigationUi
+    implementation Dependencies.swipeRefreshLayout
 
     // Test
     testImplementation TestDependencies.jUnit
