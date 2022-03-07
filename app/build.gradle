@@ -44,6 +44,9 @@ dependencies {
     implementation Dependencies.coreKtx
     implementation Dependencies.appCompat
 
+    // DI
+    implementation Dependencies.koinAndroid
+
     // UI
     implementation Dependencies.material
     implementation Dependencies.constraintLayout
