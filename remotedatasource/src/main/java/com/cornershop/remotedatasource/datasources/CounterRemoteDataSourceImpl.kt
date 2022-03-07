@@ -10,5 +10,4 @@ class CounterRemoteDataSourceImpl(
 
     override suspend fun getCounterResponse(): CounterResponse =
         counterService.getCounterResponse()
-
 }

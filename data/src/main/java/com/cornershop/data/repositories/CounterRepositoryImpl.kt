@@ -15,5 +15,4 @@ class CounterRepositoryImpl(
         counterLocalDataSource.insertCounterResponse(counterResponse)
         return counterLocalDataSource.getCounterList()
     }
-
 }

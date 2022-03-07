@@ -8,5 +8,5 @@ val dataModule = module {
     // Repositories
     factory<CounterRepository> { CounterRepositoryImpl(get(), get()) }
 
-    //Mappers
+    // Mappers
 }
