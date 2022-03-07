@@ -46,10 +46,6 @@ dependencies {
     // DI
     implementation Dependencies.koinAndroid
 
-    // UI
-    implementation Dependencies.material
-    implementation Dependencies.constraintLayout
-
     // Test dependencies
     testImplementation TestDependencies.jUnit
     androidTestImplementation TestDependencies.jUnitExtAndroid

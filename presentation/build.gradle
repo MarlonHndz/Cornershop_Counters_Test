@@ -31,6 +31,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -45,6 +48,10 @@ dependencies {
     // DI
     implementation Dependencies.koinAndroid
     implementation Dependencies.koinViewModel
+
+    // UI
+    implementation Dependencies.material
+    implementation Dependencies.constraintLayout
 
     // Test
     testImplementation TestDependencies.jUnit
