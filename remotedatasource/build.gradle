@@ -1,7 +1,6 @@
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdk 30
@@ -44,6 +43,13 @@ dependencies {
 
     // DI
     implementation Dependencies.koinAndroid
+
+    // Retrofit
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofitGsonConverter
+
+    // Background Strategy
+    implementation Dependencies.coroutines
 
     // Test
     testImplementation TestDependencies.jUnit

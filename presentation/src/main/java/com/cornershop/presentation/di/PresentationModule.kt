@@ -1,4 +1,4 @@
-package com.cornershop.presentation
+package com.cornershop.presentation.di
 
 import org.koin.dsl.module
 

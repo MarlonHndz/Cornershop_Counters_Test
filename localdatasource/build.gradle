@@ -1,7 +1,7 @@
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk 30
@@ -45,6 +45,11 @@ dependencies {
 
     // DI
     implementation Dependencies.koinAndroid
+
+    // DB
+    implementation Dependencies.roomRuntime
+    kapt Dependencies.roomCompiler
+    implementation Dependencies.roomKtx
 
     // Test
     testImplementation TestDependencies.jUnit
