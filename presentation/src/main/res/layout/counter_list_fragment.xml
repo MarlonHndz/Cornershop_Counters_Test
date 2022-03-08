@@ -9,13 +9,59 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
-            <TextView
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_search"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Counter List Fragmente HERE!"
-                android:gravity="center"/>
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_normal_1"
+                android:layout_marginVertical="@dimen/margin_small_1"
+                app:cardCornerRadius="@dimen/card_search_corner_radius"
+                app:layout_constraintBottom_toTopOf="@+id/rv_counter_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:queryHint="@string/search_counters" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_counter_list"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_zero"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_search" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/fab_add_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_margin_bottom"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingVertical="@dimen/fab_padding"
+                android:paddingStart="@dimen/fab_padding"
+                android:paddingEnd="@dimen/fab_padding"
+                android:text="@string/add_counters"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/orange"
+                app:icon="@drawable/ic_plus"
+                app:iconPadding="@dimen/fab_icon_padding"
+                app:iconSize="@dimen/fab_icon_size"
+                app:iconTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

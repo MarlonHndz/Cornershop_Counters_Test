@@ -33,7 +33,7 @@ internal object Versions {
     const val gsonVersion = "2.8.7"
 
     // UI
-    const val materialVersion = "1.4.0"
+    const val materialVersion = "1.5.0-alpha02"
     const val navigationVersion = "2.3.5"
     const val constraintLayoutVersion = "2.0.4"
     const val cardViewVersion = "1.0.0"

@@ -3,7 +3,19 @@
     <dimen name="welcome_logo_size">200dp</dimen>
     <dimen name="margin_big_2">90dp</dimen>
     <dimen name="margin_big_1">60dp</dimen>
+    <dimen name="margin_small_1">8dp</dimen>
     <dimen name="margin_normal_1">16dp</dimen>
     <dimen name="margin_normal_2">24dp</dimen>
     <dimen name="margin_normal_3">32dp</dimen>
+
+    <dimen name="dimen_zero">0dp</dimen>
+
+    <dimen name="fab_margin_bottom">30dp</dimen>
+    <dimen name="fab_padding">15dp</dimen>
+    <dimen name="fab_icon_size">15dp</dimen>
+    <dimen name="fab_icon_padding">8dp</dimen>
+
+    <dimen name="card_search_corner_radius">10dp</dimen>
+
+    <dimen name="counter_item_text_size">17sp</dimen>
 </resources>
