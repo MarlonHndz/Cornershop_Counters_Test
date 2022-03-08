@@ -10,12 +10,12 @@
         android:padding="@dimen/margin_normal_2">
 
         <TextView
-            android:id="@+id/txt_counter_name"
+            android:id="@+id/txt_counter_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_normal_1"
             android:textColor="@color/black"
-            android:textSize="@dimen/counter_item_text_size"
+            android:textSize="@dimen/counter_item_title_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_minus"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,22 +30,22 @@
             android:background="@color/white"
             android:src="@drawable/ic_minus_item"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/counter_value"
+            app:layout_constraintEnd_toStartOf="@id/txt_counter_times"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/counter_value"
+            android:id="@+id/txt_counter_times"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_normal_1"
             android:ellipsize="end"
             android:gravity="center"
-            android:maxWidth="50dp"
+            android:maxWidth="@dimen/counter_item_count_max_width"
             android:maxLines="1"
             android:text="1"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/counter_item_text_size"
+            android:textSize="@dimen/counter_item_count_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_plus"

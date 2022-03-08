@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refresh_products"
+        android:id="@+id/refresh_counters"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -17,9 +18,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_normal_1"
-                android:layout_marginVertical="@dimen/margin_small_1"
+                android:layout_marginTop="@dimen/margin_small_1"
                 app:cardCornerRadius="@dimen/card_search_corner_radius"
-                app:layout_constraintBottom_toTopOf="@+id/rv_counter_list"
+                app:layout_constraintBottom_toTopOf="@+id/txt_total_counters"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -32,6 +33,39 @@
 
             </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/txt_total_counters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal_2"
+                android:layout_marginTop="@dimen/margin_normal_2"
+                android:ellipsize="middle"
+                android:gravity="center"
+                android:maxWidth="@dimen/total_counters_max_width"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/counter_item_title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/rv_counter_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_search"
+                tools:text="4 items" />
+
+            <TextView
+                android:id="@+id/txt_total_times"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small_1"
+                android:ellipsize="middle"
+                android:gravity="center"
+                android:maxWidth="@dimen/total_counters_max_width"
+                android:maxLines="1"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/counter_item_title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_total_counters"
+                app:layout_constraintStart_toEndOf="@+id/txt_total_counters"
+                tools:text="17 times" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_counter_list"
@@ -40,7 +74,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card_search" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_total_counters" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/fab_add_counter"

@@ -17,5 +17,9 @@
 
     <dimen name="card_search_corner_radius">10dp</dimen>
 
-    <dimen name="counter_item_text_size">17sp</dimen>
+    <dimen name="counter_item_title_text_size">17sp</dimen>
+    <dimen name="counter_item_count_text_size">20sp</dimen>
+    <dimen name="counter_item_count_max_width">50dp</dimen>
+
+    <dimen name="total_counters_max_width">120dp</dimen>
 </resources>
