@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cornershop.domain.models.Counter
-import com.cornershop.presentation.R
 import com.cornershop.presentation.databinding.CounterListFragmentBinding
-import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -44,27 +42,16 @@ class CounterListFragment : Fragment() {
     private fun setUpObservers() {
         counterListViewModel.counterList.observe(viewLifecycleOwner) { counters ->
             binding.refreshCounters.isRefreshing = false
-            setUpItemsAndTimes(counters)
             counterAdapter.replaceItems(counters)
-        }
-    }
-
-    private fun setUpItemsAndTimes(counters: List<Counter>) {
-        with(binding) {
-            txtTotalCounters.text = activity?.getString(
-                R.string.n_items,
-                counters.size
-            )
-
-            txtTotalTimes.text = activity?.getString(
-                R.string.n_times,
-                counters.map { it.count }.sum()
-            )
+            if (counters.isEmpty()) {
+                binding.rsvCounterList.showEmptyView()
+            } else {
+                binding.rsvCounterList.setTotalsViews(counters)
+            }
         }
     }
 
     private fun setUpViews() {
-        // SetUp Views
         binding.fabAddCounter.setOnClickListener {
             // Navigate to add counter
         }
@@ -78,7 +65,7 @@ class CounterListFragment : Fragment() {
 
     private fun setUpCountersRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(this.context)
-        binding.rvCounterList.apply {
+        binding.rsvCounterList.recyclerView.apply {
             layoutManager = linearLayoutManager
             adapter = counterAdapter
         }
