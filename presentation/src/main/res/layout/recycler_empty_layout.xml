@@ -27,7 +27,7 @@
             android:maxWidth="300dp"
             android:text="@string/no_counters_phrase"
             android:textColor="@color/gray"
-            android:textSize="@dimen/counter_item_title_text_size" />
+            android:textSize="@dimen/text_normal_size" />
 
     </LinearLayout>
 </layout>

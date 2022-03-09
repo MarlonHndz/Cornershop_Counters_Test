@@ -10,6 +10,17 @@
         android:name="com.cornershop.presentation.ui.counterList.CounterListFragment"
         android:label="counterListFragment"
         tools:layout="@layout/counter_list_fragment">
+
+        <action
+            android:id="@+id/action_home_list_to_create_counter"
+            app:destination="@+id/create_counter_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/create_counter_fragment"
+        android:name="com.cornershop.presentation.ui.createCounter.CreateCounterFragment"
+        android:label="createCounterFragment"
+        tools:layout="@layout/create_counter_fragment">
     </fragment>
 
 </navigation>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cornershop.domain.models.Counter
 import com.cornershop.presentation.databinding.CounterListFragmentBinding
@@ -53,7 +54,9 @@ class CounterListFragment : Fragment() {
 
     private fun setUpViews() {
         binding.fabAddCounter.setOnClickListener {
-            // Navigate to add counter
+            findNavController().navigate(
+                CounterListFragmentDirections.actionHomeListToCreateCounter()
+            )
         }
     }
 

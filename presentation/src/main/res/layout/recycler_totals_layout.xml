@@ -20,7 +20,7 @@
             android:maxWidth="@dimen/total_counters_max_width"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="@dimen/counter_item_title_text_size"
+            android:textSize="@dimen/text_normal_size"
             android:textStyle="bold"
             tools:text="4 items" />
 
@@ -34,7 +34,7 @@
             android:maxWidth="@dimen/total_counters_max_width"
             android:maxLines="1"
             android:textColor="@color/gray"
-            android:textSize="@dimen/counter_item_title_text_size"
+            android:textSize="@dimen/text_normal_size"
             android:textStyle="bold"
             tools:text="17 times" />
 
