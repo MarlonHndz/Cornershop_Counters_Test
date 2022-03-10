@@ -65,13 +65,15 @@ class CounterAdapter : RecyclerView.Adapter<CounterAdapter.MyViewHolder>() {
     fun replaceItems(listCounters: List<Counter>) {
         items.clear()
         items.addAll(listCounters)
-        notifyItemRangeChanged(0, items.size)
+        notifyDataSetChanged()
     }
 
     fun removeAllItems() {
         items.clear()
-        notifyItemRangeChanged(0, items.size)
+        notifyDataSetChanged()
     }
+
+    fun getItemsList() = items
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

@@ -6,4 +6,5 @@ import com.cornershop.domain.models.Counter
 interface CounterLocalDataSource {
     suspend fun insertCounterResponseList(counterResponseList: List<CounterResponse>)
     suspend fun getCounterList(): List<Counter>
+    suspend fun deleteAllAndInsertCounters(counterResponseList: List<CounterResponse>)
 }

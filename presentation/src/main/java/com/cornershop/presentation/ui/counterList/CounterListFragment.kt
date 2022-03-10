@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cornershop.domain.commons.StringUtils.COMMA_SEPARATOR
 import com.cornershop.domain.models.Counter
 import com.cornershop.presentation.R
 import com.cornershop.presentation.databinding.CounterListFragmentBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,7 +19,7 @@ class CounterListFragment : Fragment() {
 
     private lateinit var binding: CounterListFragmentBinding
 
-    private val counterListViewModel: CounterListViewModel by viewModel()
+    private val counterViewModel: CounterViewModel by viewModel()
     private val counterAdapter: CounterAdapter by inject()
 
     override fun onCreateView(
@@ -41,7 +43,7 @@ class CounterListFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        counterListViewModel.counterList.observe(viewLifecycleOwner) { counters ->
+        counterViewModel.counterList.observe(viewLifecycleOwner) { counters ->
             binding.refreshCounters.isRefreshing = false
             counterAdapter.replaceItems(counters)
             if (counters.isEmpty()) {
@@ -59,13 +61,38 @@ class CounterListFragment : Fragment() {
             )
         }
         binding.refreshCounters.setOnRefreshListener {
-            counterListViewModel.fetchCounterList()
+            counterViewModel.fetchCounterList()
         }
         binding.customToolbar.imgCloseToolbar.setOnClickListener {
             binding.cardSearch.visibility = View.VISIBLE
             binding.customToolbar.root.visibility = View.GONE
 
             loadData()
+        }
+        binding.customToolbar.imgDeleteToolbar.setOnClickListener {
+            val counterList = counterAdapter.getItemsList()
+            if (counterList.any { it.isSelected }) {
+                val countersSelectedList = counterList.filter { counter -> counter.isSelected }
+                context?.let {
+                    MaterialAlertDialogBuilder(it)
+                        .setMessage(
+                            it.getString(
+                                R.string.delete_x_question,
+                                countersSelectedList.joinToString(COMMA_SEPARATOR) { counter -> counter.title }
+                            )
+                        )
+                        .setPositiveButton(it.getString(R.string.delete)) { dialog, _ ->
+                            counterViewModel.deleteCounterList(countersSelectedList)
+                            binding.cardSearch.visibility = View.VISIBLE
+                            binding.customToolbar.root.visibility = View.GONE
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton(it.getString(R.string.cancel)) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                }
+            }
         }
     }
 
@@ -103,6 +130,6 @@ class CounterListFragment : Fragment() {
     }
 
     private fun loadData() {
-        counterListViewModel.fetchCounterList()
+        counterViewModel.fetchCounterList()
     }
 }

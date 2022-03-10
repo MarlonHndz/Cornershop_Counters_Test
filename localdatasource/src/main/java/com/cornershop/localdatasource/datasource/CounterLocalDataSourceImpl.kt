@@ -23,4 +23,10 @@ class CounterLocalDataSourceImpl(
     override suspend fun getCounterList(): List<Counter> {
         return counterLocalToCounterMapper(appDatabase.CounterDao().getAll())
     }
+
+    override suspend fun deleteAllAndInsertCounters(counterResponseList: List<CounterResponse>) {
+        val counterLocalList: List<CounterLocal> =
+            counterResponseToCounterLocalMapper(counterResponseList)
+        appDatabase.CounterDao().deleteAllAndInsert(counterLocalList)
+    }
 }

@@ -10,7 +10,11 @@ class CounterUseCase(
         return counterRepository.getCounterList()
     }
 
-    suspend fun saveCounter(title: String) {
-        counterRepository.saveCounter(title)
+    suspend fun saveCounter(title: String): List<Counter> {
+        return counterRepository.saveCounter(title)
+    }
+
+    suspend fun deleteCounter(counter: Counter): List<Counter>  {
+        return counterRepository.deleteCounter(counter)
     }
 }

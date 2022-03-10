@@ -50,6 +50,6 @@
     <string name="counter_name_label">Name</string>
     <string name="counter_name_hint">Cups of coffee</string>
     <string name="create_counter_disclaimer">Give it a name. Creative block? See examples.</string>
-    <string name="delete_x_question">Delete "%s"?</string>
+    <string name="delete_x_question">Delete \"%s\"?</string>
     <string name="n_per_counter_name">%d × %s</string>
 </resources>
