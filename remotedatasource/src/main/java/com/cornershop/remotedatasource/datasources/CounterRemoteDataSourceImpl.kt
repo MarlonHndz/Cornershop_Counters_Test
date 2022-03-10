@@ -8,6 +8,10 @@ class CounterRemoteDataSourceImpl(
     private val counterService: CounterService
 ) : CounterRemoteDataSource {
 
-    override suspend fun getCounterResponse(): CounterResponse =
-        counterService.getCounterResponse()
+    override suspend fun getCounterResponseList(): List<CounterResponse> =
+        counterService.getCounterResponseList()
+
+    override suspend fun saveCounter(title: String) {
+        counterService.saveCounter(title)
+    }
 }

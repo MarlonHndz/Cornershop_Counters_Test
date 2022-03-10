@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cornershop.domain.models.Counter
 import com.cornershop.domain.useCases.CounterUseCase
-import com.cornershop.presentation.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,21 +24,9 @@ class CounterListViewModel(
     fun fetchCounterList() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-//                val counterList = counterUseCase.getCounterList()
-                val counterList = getMockList()
+                val counterList = counterUseCase.getCounterList()
                 _counterList.postValue(counterList)
             }
-        }
-    }
-
-    private fun getMockList(): List<Counter> {
-        val entireGames: Array<String> = context.resources.getStringArray(R.array.drinks_array)
-        return entireGames.map {
-            Counter(
-                id = 1,
-                title = it,
-                count = 1
-            )
         }
     }
 }

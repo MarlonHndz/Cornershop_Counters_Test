@@ -9,4 +9,8 @@ class CounterUseCase(
     suspend fun getCounterList(): List<Counter> {
         return counterRepository.getCounterList()
     }
+
+    suspend fun saveCounter(title: String) {
+        counterRepository.saveCounter(title)
+    }
 }

@@ -25,4 +25,6 @@
     <dimen name="total_counters_max_width">120dp</dimen>
 
     <dimen name="text_button_padding">10dp</dimen>
+
+    <dimen name="save_loading_size">30dp</dimen>
 </resources>

@@ -35,7 +35,6 @@ class CounterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
         setUpViews()
-        setUpListenersFromView()
         setUpCountersRecyclerView()
         loadData()
     }
@@ -58,9 +57,6 @@ class CounterListFragment : Fragment() {
                 CounterListFragmentDirections.actionHomeListToCreateCounter()
             )
         }
-    }
-
-    private fun setUpListenersFromView() {
         binding.refreshCounters.setOnRefreshListener {
             counterListViewModel.fetchCounterList()
         }

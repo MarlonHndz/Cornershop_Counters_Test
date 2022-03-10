@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -45,6 +46,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txt_create_title" />
 
+        <ProgressBar
+            android:id="@+id/pb_save_loading"
+            android:layout_width="@dimen/save_loading_size"
+            android:layout_height="@dimen/save_loading_size"
+            android:layout_marginEnd="@dimen/margin_normal_1"
+            android:indeterminateTint="@color/orange"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_create_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_create_title"
+            tools:visibility="visible" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_input_counter_name"
             android:layout_width="match_parent"
@@ -52,14 +65,19 @@
             android:layout_marginHorizontal="@dimen/margin_normal_2"
             android:layout_marginTop="@dimen/margin_normal_3"
             android:hint="@string/counter_name_label"
+            android:textColorHint="@color/orange"
             app:expandedHintEnabled="false"
+            app:hintTextColor="@color/orange"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_create_title">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_txt_counter_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/counter_name_hint" />
+                android:backgroundTint="@color/orange"
+                android:hint="@string/counter_name_hint"
+                android:textColorHint="@color/gray" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

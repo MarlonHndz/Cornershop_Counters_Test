@@ -11,8 +11,12 @@ class CounterRepositoryImpl(
 ) : CounterRepository {
 
     override suspend fun getCounterList(): List<Counter> {
-        val counterResponse = counterRemoteDataSource.getCounterResponse()
-        counterLocalDataSource.insertCounterResponse(counterResponse)
+        val counterResponseList = counterRemoteDataSource.getCounterResponseList()
+        counterLocalDataSource.insertCounterResponseList(counterResponseList)
         return counterLocalDataSource.getCounterList()
+    }
+
+    override suspend fun saveCounter(title: String) {
+        counterRemoteDataSource.saveCounter(title)
     }
 }

@@ -11,5 +11,5 @@ val localDataSourceModule = module {
     single { get<AppDatabase>().CounterDao() }
 
     // DataSources
-    factory<CounterLocalDataSource> { CounterLocalDataSourceImpl(get()) }
+    factory<CounterLocalDataSource> { CounterLocalDataSourceImpl(get(), get(), get()) }
 }
