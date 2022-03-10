@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_delete"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginBottom="3dp"
+            android:elevation="10dp"
+            android:fitsSystemWindows="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/img_close_toolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_zero"
+                    android:layout_marginStart="@dimen/margin_small_1"
+                    android:background="@color/white"
+                    android:padding="@dimen/margin_small_1"
+                    android:src="@drawable/ic_close"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_toolbar_delete_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal_3"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/text_title_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img_close_toolbar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1 selected" />
+
+                <ImageButton
+                    android:id="@+id/img_delete_toolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_zero"
+                    android:layout_marginEnd="@dimen/margin_normal_1"
+                    android:background="@color/white"
+                    android:padding="@dimen/margin_small_1"
+                    android:src="@drawable/ic_delete"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/toolbar_bottom_stroke"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/border_bottom_gray"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_delete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

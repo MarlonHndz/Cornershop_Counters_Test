@@ -7,4 +7,8 @@
     <color name="light_gray">#DCDCDF</color>
 
     <color name="welcome_background">#F9F9F9</color>
+    <color name="counter_selected_background">#33FF9500</color>
+
+    <color name="gray_border">#73F5F5F5</color>
+    <color name="dark_gray_border">#80B3B3B3</color>
 </resources>

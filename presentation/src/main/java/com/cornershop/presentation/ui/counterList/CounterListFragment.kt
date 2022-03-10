@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cornershop.domain.models.Counter
+import com.cornershop.presentation.R
 import com.cornershop.presentation.databinding.CounterListFragmentBinding
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -60,6 +61,12 @@ class CounterListFragment : Fragment() {
         binding.refreshCounters.setOnRefreshListener {
             counterListViewModel.fetchCounterList()
         }
+        binding.customToolbar.imgCloseToolbar.setOnClickListener {
+            binding.cardSearch.visibility = View.VISIBLE
+            binding.customToolbar.root.visibility = View.GONE
+
+            loadData()
+        }
     }
 
     private fun setUpCountersRecyclerView() {
@@ -70,8 +77,27 @@ class CounterListFragment : Fragment() {
         }
 
         counterAdapter.addListener(object : CounterAdapter.Listener {
-            override fun itemClicked(counter: Counter) {
-                TODO("Not yet implemented")
+            override fun itemLongClicked(counters: List<Counter>) {
+                binding.cardSearch.visibility = View.INVISIBLE
+                binding.customToolbar.root.visibility = View.VISIBLE
+
+                binding.customToolbar.txtToolbarDeleteTitle.text = context?.getString(
+                    R.string.n_selected,
+                    1
+                )
+            }
+
+            override fun itemSelectionClicked(counters: List<Counter>) {
+                binding.customToolbar.txtToolbarDeleteTitle.text = context?.getString(
+                    R.string.n_selected,
+                    counters.filter { it.isSelected }.size
+                )
+                if (counters.none { it.isSelected }) {
+                    binding.cardSearch.visibility = View.VISIBLE
+                    binding.customToolbar.root.visibility = View.GONE
+
+                    loadData()
+                }
             }
         })
     }

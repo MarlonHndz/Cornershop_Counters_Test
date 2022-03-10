@@ -10,7 +10,8 @@ class CounterLocalToCounterMapper {
             Counter(
                 id = counterLocal.id,
                 title = counterLocal.title,
-                count = counterLocal.count
+                count = counterLocal.count,
+                isSelected = false
             )
         }
     }
