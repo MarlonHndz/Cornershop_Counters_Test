@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cornershop.domain.commons.StringUtils.COMMA_SEPARATOR
 import com.cornershop.domain.models.Counter
 import com.cornershop.presentation.R
 import com.cornershop.presentation.databinding.CounterListFragmentBinding
+import com.cornershop.presentation.ui.baseViews.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CounterListFragment : Fragment() {
+class CounterListFragment : BaseFragment() {
 
     private lateinit var binding: CounterListFragmentBinding
 
@@ -36,20 +36,54 @@ class CounterListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpObservers()
+        setUpViewObservers()
         setUpViews()
         setUpCountersRecyclerView()
-        loadData()
     }
 
-    private fun setUpObservers() {
-        counterViewModel.counterList.observe(viewLifecycleOwner) { counters ->
-            binding.refreshCounters.isRefreshing = false
-            counterAdapter.replaceItems(counters)
-            if (counters.isEmpty()) {
-                binding.rsvCounterList.showEmptyView()
-            } else {
-                binding.rsvCounterList.setTotalsViews(counters)
+    private fun setUpViewObservers() {
+        with(counterViewModel) {
+
+            serviceStatusHandlerLiveData.observe(viewLifecycleOwner) { serviceHandler ->
+                serviceStatusFlow.value = serviceHandler
+            }
+
+            counterListLiveData.observe(viewLifecycleOwner) { counters ->
+                binding.refreshCounters.isRefreshing = false
+                counterAdapter.replaceItems(counters)
+            }
+
+            showLoadingLiveDada.observe(viewLifecycleOwner) { condition ->
+                if (condition) {
+                    binding.refreshCounters.isRefreshing = false
+                    binding.rsvCounterList.showLoadingView()
+                }
+            }
+
+            showEmptyViewLiveData.observe(viewLifecycleOwner) { condition ->
+                if (condition) {
+                    binding.refreshCounters.isRefreshing = false
+                    binding.rsvCounterList.showEmptyView()
+                }
+            }
+
+            showListViewLiveData.observe(viewLifecycleOwner) { condition ->
+                if (condition) {
+                    binding.refreshCounters.isRefreshing = false
+                    counterListLiveData.value?.let { counterList ->
+                        binding.rsvCounterList.showRecyclerAndTotalsViews(counterList)
+                    }
+                }
+            }
+
+            showErrorViewLiveData.observe(viewLifecycleOwner) { condition ->
+                if (condition) {
+                    binding.refreshCounters.isRefreshing = false
+                    binding.rsvCounterList.setOnRetryClickListener {
+                        counterViewModel.fetchCounterList()
+                    }
+                    binding.rsvCounterList.showErrorView()
+                }
             }
         }
     }
@@ -61,6 +95,8 @@ class CounterListFragment : Fragment() {
             )
         }
         binding.refreshCounters.setOnRefreshListener {
+            binding.cardSearch.visibility = View.VISIBLE
+            binding.customToolbar.root.visibility = View.GONE
             counterViewModel.fetchCounterList()
         }
         binding.customToolbar.imgCloseToolbar.setOnClickListener {

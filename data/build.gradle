@@ -50,6 +50,10 @@ dependencies {
     kapt Dependencies.roomCompiler
     implementation Dependencies.roomKtx
 
+    // Retrofit
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofitGsonConverter
+
     // Test
     testImplementation TestDependencies.jUnit
     androidTestImplementation TestDependencies.jUnitExtAndroid

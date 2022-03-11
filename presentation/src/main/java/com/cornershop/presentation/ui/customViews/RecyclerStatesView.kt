@@ -71,7 +71,7 @@ class RecyclerStatesView constructor(
         loadingBinding.root.visibility = View.VISIBLE
     }
 
-    fun showRecyclerView() {
+    private fun showRecyclerView() {
         loadingBinding.root.visibility = View.GONE
         errorBinding.root.visibility = View.GONE
         emptyBinding.root.visibility = View.GONE
@@ -80,7 +80,7 @@ class RecyclerStatesView constructor(
         totalsBinding.root.visibility = View.VISIBLE
     }
 
-    fun setTotalsViews(counters: List<Counter>) {
+    fun showRecyclerAndTotalsViews(counters: List<Counter>) {
         showRecyclerView()
         with(totalsBinding) {
             txtTotalCounters.text = context?.getString(

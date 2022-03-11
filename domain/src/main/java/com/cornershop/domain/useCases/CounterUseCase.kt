@@ -5,7 +5,8 @@ import com.cornershop.domain.repositories.CounterRepository
 
 class CounterUseCase(
     private val counterRepository: CounterRepository
-) {
+) : BaseUseCase() {
+
     suspend fun getCounterList(): List<Counter> {
         return counterRepository.getCounterList()
     }
@@ -14,7 +15,9 @@ class CounterUseCase(
         return counterRepository.saveCounter(title)
     }
 
-    suspend fun deleteCounter(counter: Counter): List<Counter>  {
+    suspend fun deleteCounter(counter: Counter): List<Counter> {
         return counterRepository.deleteCounter(counter)
     }
+
+    override fun getResultStatusLiveData() = counterRepository.getResultStatusLiveData()
 }
