@@ -39,6 +39,7 @@ class CounterListFragment : BaseFragment() {
         setUpViewObservers()
         setUpViews()
         setUpCountersRecyclerView()
+        loadData()
     }
 
     private fun setUpViewObservers() {

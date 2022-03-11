@@ -4,20 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.view.isVisible
 import com.cornershop.domain.commons.StringUtils.COMMA_SEPARATOR
 import com.cornershop.domain.commons.StringUtils.EMPTY_STRING
 import com.cornershop.domain.commons.StringUtils.NEW_LINE
+import com.cornershop.domain.repositories.serviceHandler.ServiceHandler
+import com.cornershop.domain.repositories.serviceHandler.ServiceStatus
 import com.cornershop.presentation.R
 import com.cornershop.presentation.databinding.CreateCounterFragmentBinding
-import com.cornershop.presentation.ui.counterList.CounterViewModel
+import com.cornershop.presentation.ui.baseViews.BaseFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CreateCounterFragment : Fragment() {
+class CreateCounterFragment : BaseFragment() {
 
     private lateinit var binding: CreateCounterFragmentBinding
 
-    private val counterViewModel: CounterViewModel by viewModel()
+    private val createCounterViewModel: CreateCounterViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +41,33 @@ class CreateCounterFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        // method
+        // Another way to handle Service Status
+        with(createCounterViewModel) {
+            serviceStatusHandlerLiveData.observe(viewLifecycleOwner) { serviceHandler ->
+                onServiceStatusChanged(serviceHandler) {}
+            }
+        }
+    }
+
+    override fun onServiceStatusChanged(
+        serviceHandler: ServiceHandler,
+        onRetry: () -> Unit
+    ) {
+        when (serviceHandler.status) {
+            ServiceStatus.LOADING -> {
+                showLoading(true)
+            }
+            ServiceStatus.ERROR_SERVICE,
+            ServiceStatus.ERROR_TIMEOUT,
+            ServiceStatus.ERROR_UNKNOWN_HOST,
+            ServiceStatus.ERROR_NO_INTERNET_CONNECTION -> {
+                showLoading(false)
+                showErrorAlert()
+            }
+            ServiceStatus.SUCCESS -> {
+                activity?.onBackPressed()
+            }
+        }
     }
 
     private fun setUpViews() {
@@ -48,8 +77,9 @@ class CreateCounterFragment : Fragment() {
         binding.txtBtnSave.setOnClickListener {
             val name = binding.edTxtCounterName.text
             if (!name.isNullOrEmpty()) {
-                counterViewModel.saveCounter(name.toString())
+                createCounterViewModel.saveCounter(name.toString())
                 binding.txtInputCounterName.helperText = null
+                hideKeyboard()
             } else {
                 binding.txtInputCounterName.helperText = helperText()
             }
@@ -65,5 +95,24 @@ class CreateCounterFragment : Fragment() {
             } ?: EMPTY_STRING
 
         return helperMsg + NEW_LINE + helperOptions
+    }
+
+    private fun showLoading(isVisible: Boolean) {
+        with(binding) {
+            pbSaveLoading.isVisible = isVisible
+            txtBtnSave.isVisible = !isVisible
+        }
+    }
+
+    private fun showErrorAlert() {
+        context?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle(it.getString(R.string.error_creating_counter_title))
+                .setMessage(it.getString(R.string.connection_error_description))
+                .setPositiveButton(it.getString(R.string.ok)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 }

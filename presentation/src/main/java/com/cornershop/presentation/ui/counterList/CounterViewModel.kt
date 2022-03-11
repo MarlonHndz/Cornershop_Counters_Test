@@ -63,15 +63,6 @@ class CounterViewModel(
         }
     }
 
-    fun saveCounter(counterName: String) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val counterList = counterUseCase.saveCounter(counterName)
-                counterListFlow.value = counterList
-            }
-        }
-    }
-
     fun deleteCounterList(counters: List<Counter>) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
