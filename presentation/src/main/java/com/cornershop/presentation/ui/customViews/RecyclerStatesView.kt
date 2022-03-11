@@ -82,6 +82,10 @@ class RecyclerStatesView constructor(
 
     fun showRecyclerAndTotalsViews(counters: List<Counter>) {
         showRecyclerView()
+        setTotalsView(counters)
+    }
+
+    fun setTotalsView(counters: List<Counter>) {
         with(totalsBinding) {
             txtTotalCounters.text = context?.getString(
                 R.string.n_items,

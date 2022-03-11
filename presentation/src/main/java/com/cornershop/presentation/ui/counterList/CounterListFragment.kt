@@ -52,6 +52,7 @@ class CounterListFragment : BaseFragment() {
             counterListLiveData.observe(viewLifecycleOwner) { counters ->
                 binding.refreshCounters.isRefreshing = false
                 counterAdapter.replaceItems(counters)
+                binding.rsvCounterList.setTotalsView(counters)
             }
 
             showLoadingLiveDada.observe(viewLifecycleOwner) { condition ->
@@ -81,7 +82,7 @@ class CounterListFragment : BaseFragment() {
                 if (condition) {
                     binding.refreshCounters.isRefreshing = false
                     binding.rsvCounterList.setOnRetryClickListener {
-                        counterViewModel.fetchCounterList()
+                        loadData()
                     }
                     binding.rsvCounterList.showErrorView()
                 }
@@ -98,7 +99,7 @@ class CounterListFragment : BaseFragment() {
         binding.refreshCounters.setOnRefreshListener {
             binding.cardSearch.visibility = View.VISIBLE
             binding.customToolbar.root.visibility = View.GONE
-            counterViewModel.fetchCounterList()
+            loadData()
         }
         binding.customToolbar.imgCloseToolbar.setOnClickListener {
             binding.cardSearch.visibility = View.VISIBLE
