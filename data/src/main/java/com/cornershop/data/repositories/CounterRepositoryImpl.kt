@@ -38,8 +38,6 @@ class CounterRepositoryImpl(
     }
 
     override suspend fun deleteCounter(counter: Counter): List<Counter> {
-//        val counterResponseList = counterRemoteDataSource.deleteCounter(counter)
-//        counterLocalDataSource.deleteAllAndInsertCounters(counterResponseList)
         makeApiCall(
             call = { counterRemoteDataSource.deleteCounter(counter) },
             saveCallResultLocally = { counterLocalDataSource.deleteAllAndInsertCounters(it) },
