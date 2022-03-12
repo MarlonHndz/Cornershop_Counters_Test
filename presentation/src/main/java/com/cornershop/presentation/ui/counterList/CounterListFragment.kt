@@ -89,6 +89,18 @@ class CounterListFragment : BaseFragment() {
                 }
             }
 
+            showErrorWithListViewLiveData.observe(viewLifecycleOwner) { condition ->
+                if (condition) {
+                    binding.refreshCounters.isRefreshing = false
+                    counterListLiveData.value?.let { counterList ->
+                        binding.rsvCounterList.showRecyclerAndTotalsViews(counterList)
+                    }
+                    binding.txtConnectionError.visibility = View.VISIBLE
+                } else {
+                    binding.txtConnectionError.visibility = View.GONE
+                }
+            }
+
             showIncOrDecErrorViewLiveData.observe(viewLifecycleOwner) { condition ->
                 if (condition) {
                     val serviceHandler = serviceStatusHandlerLiveData.value ?: return@observe

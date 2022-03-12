@@ -55,7 +55,7 @@ class CounterListViewModel(
 
     val showErrorWithListViewLiveData: LiveData<Boolean> =
         combine(counterListFlow, serviceStatusFlow) { counters, serviceHandler ->
-            serviceHandler?.status == ServiceStatus.ERROR_SERVICE && counters.isNotEmpty()
+            (serviceHandler.let { it!!.isServiceGlobalError() }) && counters.isNotEmpty()
         }.asLiveData()
 
     val showIncOrDecErrorViewLiveData: LiveData<Boolean> =
