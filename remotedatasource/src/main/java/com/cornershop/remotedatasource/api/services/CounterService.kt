@@ -20,4 +20,12 @@ interface CounterService {
     @HTTP(method = "DELETE", path = "/api/v1/counter", hasBody = true)
     @FormUrlEncoded
     suspend fun deleteCounter(@Field("id") id: String): Response<List<CounterResponse>>
+
+    @POST("/api/v1/counter/inc")
+    @FormUrlEncoded
+    suspend fun incrementTime(@Field("id") id: String): Response<List<CounterResponse>>
+
+    @POST("/api/v1/counter/dec")
+    @FormUrlEncoded
+    suspend fun decrementTime(@Field("id") id: String): Response<List<CounterResponse>>
 }

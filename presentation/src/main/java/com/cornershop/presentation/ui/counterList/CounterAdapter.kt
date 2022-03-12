@@ -1,13 +1,17 @@
 package com.cornershop.presentation.ui.counterList
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cornershop.domain.models.Counter
+import com.cornershop.presentation.R
 import com.cornershop.presentation.databinding.CounterItemBinding
 
-class CounterAdapter : RecyclerView.Adapter<CounterAdapter.MyViewHolder>() {
+class CounterAdapter(
+    private val context: Context
+) : RecyclerView.Adapter<CounterAdapter.MyViewHolder>() {
 
     private var items = mutableListOf<Counter>()
     private var listener: Listener? = null
@@ -49,6 +53,20 @@ class CounterAdapter : RecyclerView.Adapter<CounterAdapter.MyViewHolder>() {
                     listener?.itemLongClicked(items)
                     true
                 }
+
+                btnPlus.setOnClickListener {
+                    listener?.btnPlusClicked(counter)
+                }
+
+                if (counter.count > 0) {
+                    btnMinus.setImageResource(R.drawable.ic_minus_item)
+                    txtCounterTimes.setTextColor(context.resources.getColor(R.color.black))
+                    btnMinus.setOnClickListener { listener?.btnMinusClicked(counter) }
+                } else {
+                    btnMinus.setImageResource(R.drawable.ic_minus_item_gray)
+                    txtCounterTimes.setTextColor(context.resources.getColor(R.color.gray))
+                    btnMinus.setOnClickListener {}
+                }
             }
         }
     }
@@ -56,6 +74,8 @@ class CounterAdapter : RecyclerView.Adapter<CounterAdapter.MyViewHolder>() {
     interface Listener {
         fun itemLongClicked(counters: List<Counter>)
         fun itemSelectionClicked(counters: List<Counter>)
+        fun btnMinusClicked(counter: Counter)
+        fun btnPlusClicked(counter: Counter)
     }
 
     fun addListener(listener: Listener) {

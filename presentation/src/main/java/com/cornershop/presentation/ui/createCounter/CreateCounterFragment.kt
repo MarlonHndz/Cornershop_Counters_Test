@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.cornershop.domain.commons.StringUtils.COMMA_SEPARATOR
-import com.cornershop.domain.commons.StringUtils.EMPTY_STRING
-import com.cornershop.domain.commons.StringUtils.NEW_LINE
+import com.cornershop.domain.commons.Utils.COMMA_SEPARATOR
+import com.cornershop.domain.commons.Utils.EMPTY_STRING
+import com.cornershop.domain.commons.Utils.NEW_LINE
 import com.cornershop.domain.repositories.serviceHandler.ServiceHandler
 import com.cornershop.domain.repositories.serviceHandler.ServiceStatus
 import com.cornershop.presentation.R

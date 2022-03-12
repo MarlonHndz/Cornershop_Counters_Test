@@ -9,4 +9,6 @@ interface CounterRepository {
     suspend fun getCounterList(): List<Counter>
     suspend fun saveCounter(title: String): List<Counter>
     suspend fun deleteCounter(counter: Counter): List<Counter>
+    suspend fun incrementTime(counter: Counter): List<Counter>
+    suspend fun decrementTime(counter: Counter): List<Counter>
 }

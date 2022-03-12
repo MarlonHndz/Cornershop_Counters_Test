@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cornershop.domain.commons.StringUtils.COMMA_SEPARATOR
+import com.cornershop.domain.commons.Utils.COMMA_SEPARATOR
 import com.cornershop.domain.models.Counter
+import com.cornershop.domain.repositories.serviceHandler.ServiceCalled
 import com.cornershop.presentation.R
 import com.cornershop.presentation.databinding.CounterListFragmentBinding
 import com.cornershop.presentation.ui.baseViews.BaseFragment
@@ -19,7 +20,7 @@ class CounterListFragment : BaseFragment() {
 
     private lateinit var binding: CounterListFragmentBinding
 
-    private val counterViewModel: CounterViewModel by viewModel()
+    private val counterListViewModel: CounterListViewModel by viewModel()
     private val counterAdapter: CounterAdapter by inject()
 
     override fun onCreateView(
@@ -43,7 +44,7 @@ class CounterListFragment : BaseFragment() {
     }
 
     private fun setUpViewObservers() {
-        with(counterViewModel) {
+        with(counterListViewModel) {
 
             serviceStatusHandlerLiveData.observe(viewLifecycleOwner) { serviceHandler ->
                 serviceStatusFlow.value = serviceHandler
@@ -87,6 +88,48 @@ class CounterListFragment : BaseFragment() {
                     binding.rsvCounterList.showErrorView()
                 }
             }
+
+            showIncOrDecErrorViewLiveData.observe(viewLifecycleOwner) { condition ->
+                if (condition) {
+                    val serviceHandler = serviceStatusHandlerLiveData.value ?: return@observe
+                    val updateValue =
+                        if (serviceHandler.serviceCalled == ServiceCalled.COUNTER_INCREMENT_TIME) {
+                            currentCounter.count + 1
+                        } else {
+                            currentCounter.count - 1
+                        }
+
+                    context?.let {
+                        MaterialAlertDialogBuilder(it)
+                            .setTitle(
+                                it.getString(
+                                    R.string.error_updating_counter_title,
+                                    currentCounter.title,
+                                    updateValue
+                                )
+                            )
+                            .setMessage(it.getString(R.string.connection_error_description))
+                            .setPositiveButton(it.getString(R.string.dismiss)) { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
+                    }
+                }
+            }
+
+            showDeleteErrorViewLiveData.observe(viewLifecycleOwner) { condition ->
+                if (condition) {
+                    context?.let {
+                        MaterialAlertDialogBuilder(it)
+                            .setTitle(it.getString(R.string.error_deleting_counter_title))
+                            .setMessage(it.getString(R.string.connection_error_description))
+                            .setPositiveButton(it.getString(R.string.ok)) { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
+                    }
+                }
+            }
         }
     }
 
@@ -120,7 +163,7 @@ class CounterListFragment : BaseFragment() {
                             )
                         )
                         .setPositiveButton(it.getString(R.string.delete)) { dialog, _ ->
-                            counterViewModel.deleteCounterList(countersSelectedList)
+                            counterListViewModel.deleteCounterList(countersSelectedList)
                             binding.cardSearch.visibility = View.VISIBLE
                             binding.customToolbar.root.visibility = View.GONE
                             dialog.dismiss()
@@ -164,10 +207,18 @@ class CounterListFragment : BaseFragment() {
                     loadData()
                 }
             }
+
+            override fun btnPlusClicked(counter: Counter) {
+                counterListViewModel.incrementTime(counter)
+            }
+
+            override fun btnMinusClicked(counter: Counter) {
+                counterListViewModel.decrementTime(counter)
+            }
         })
     }
 
     private fun loadData() {
-        counterViewModel.fetchCounterList()
+        counterListViewModel.fetchCounterList()
     }
 }

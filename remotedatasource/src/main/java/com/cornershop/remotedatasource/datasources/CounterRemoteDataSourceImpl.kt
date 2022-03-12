@@ -20,4 +20,12 @@ class CounterRemoteDataSourceImpl(
     override suspend fun deleteCounter(counter: Counter): Response<List<CounterResponse>> {
         return counterService.deleteCounter(counter.id)
     }
+
+    override suspend fun incrementTime(counter: Counter): Response<List<CounterResponse>> {
+        return counterService.incrementTime(counter.id)
+    }
+
+    override suspend fun decrementTime(counter: Counter): Response<List<CounterResponse>> {
+        return counterService.decrementTime(counter.id)
+    }
 }

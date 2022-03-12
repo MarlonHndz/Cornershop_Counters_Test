@@ -7,6 +7,8 @@ class CounterUseCase(
     private val counterRepository: CounterRepository
 ) : BaseUseCase() {
 
+    override fun getResultStatusLiveData() = counterRepository.getResultStatusLiveData()
+
     suspend fun getCounterList(): List<Counter> {
         return counterRepository.getCounterList()
     }
@@ -19,5 +21,11 @@ class CounterUseCase(
         return counterRepository.deleteCounter(counter)
     }
 
-    override fun getResultStatusLiveData() = counterRepository.getResultStatusLiveData()
+    suspend fun incrementTime(counter: Counter): List<Counter> {
+        return counterRepository.incrementTime(counter)
+    }
+
+    suspend fun decrementTime(counter: Counter): List<Counter> {
+        return counterRepository.decrementTime(counter)
+    }
 }

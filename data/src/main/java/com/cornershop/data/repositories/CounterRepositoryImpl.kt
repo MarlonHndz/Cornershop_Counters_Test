@@ -41,7 +41,27 @@ class CounterRepositoryImpl(
         makeApiCall(
             call = { counterRemoteDataSource.deleteCounter(counter) },
             saveCallResultLocally = { counterLocalDataSource.deleteAllAndInsertCounters(it) },
-            serviceCalled = ServiceCalled.COUNTER_SAVE,
+            serviceCalled = ServiceCalled.COUNTER_DELETE,
+            silentLoading = false
+        )
+        return counterLocalDataSource.getCounterList()
+    }
+
+    override suspend fun incrementTime(counter: Counter): List<Counter> {
+        makeApiCall(
+            call = { counterRemoteDataSource.incrementTime(counter) },
+            saveCallResultLocally = { counterLocalDataSource.insertCounterResponseList(it) },
+            serviceCalled = ServiceCalled.COUNTER_INCREMENT_TIME,
+            silentLoading = false
+        )
+        return counterLocalDataSource.getCounterList()
+    }
+
+    override suspend fun decrementTime(counter: Counter): List<Counter> {
+        makeApiCall(
+            call = { counterRemoteDataSource.decrementTime(counter) },
+            saveCallResultLocally = { counterLocalDataSource.insertCounterResponseList(it) },
+            serviceCalled = ServiceCalled.COUNTER_DECREMENT_TIME,
             silentLoading = false
         )
         return counterLocalDataSource.getCounterList()
