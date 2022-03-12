@@ -43,6 +43,7 @@
         android:paddingStart="@dimen/margin_normal_1"
         android:paddingEnd="@dimen/margin_normal_1"
         android:textColor="?attr/colorPrimary"
+        android:onClick="navigateToHome"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
