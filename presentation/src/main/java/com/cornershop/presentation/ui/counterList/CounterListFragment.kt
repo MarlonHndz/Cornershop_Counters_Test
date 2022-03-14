@@ -54,7 +54,11 @@ class CounterListFragment : BaseFragment() {
 
             counterListLiveData.observe(viewLifecycleOwner) { counters ->
                 binding.refreshCounters.isRefreshing = false
-                counterAdapter.replaceItems(counters)
+                var finalList = counters
+                if (binding.searchBarView.getEditText().text.isNotEmpty()) {
+                    finalList = getFilteredList(binding.searchBarView.getEditText().text.toString())
+                }
+                counterAdapter.replaceItems(finalList)
                 binding.rsvCounterList.setTotalsView(counters)
             }
 
@@ -153,10 +157,11 @@ class CounterListFragment : BaseFragment() {
         binding.searchBarView.searchToolbarIsDisplayedLiveData.observe(viewLifecycleOwner) { isDisplayed ->
             if (isDisplayed) {
                 binding.fabAddCounter.visibility = View.GONE
+                showSoftKeyboard(binding.searchBarView.getEditText())
             } else {
                 binding.fabAddCounter.visibility = View.VISIBLE
                 binding.emptyMessageLayout.root.visibility = View.GONE
-                hideKeyboard()
+                hideSoftKeyboard()
             }
         }
     }

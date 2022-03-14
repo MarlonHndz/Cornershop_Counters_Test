@@ -79,11 +79,13 @@ class CreateCounterFragment : BaseFragment() {
             if (!name.isNullOrEmpty()) {
                 createCounterViewModel.saveCounter(name.toString())
                 binding.txtInputCounterName.helperText = null
-                hideKeyboard()
+                hideSoftKeyboard()
             } else {
                 binding.txtInputCounterName.helperText = helperText()
             }
         }
+        binding.edTxtCounterName.requestFocus()
+        showSoftKeyboard(binding.edTxtCounterName)
     }
 
     private fun helperText(): String {
