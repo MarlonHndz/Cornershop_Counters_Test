@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_counters"
@@ -22,48 +23,52 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_search"
+            <com.cornershop.presentation.ui.customViews.CardSearchView
+                android:id="@+id/search_bar_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_normal_1"
-                android:layout_marginTop="@dimen/margin_small_1"
-                app:cardCornerRadius="@dimen/card_search_corner_radius"
+                android:clickable="true"
+                android:focusable="true"
+                android:translationZ="2dp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/txt_connection_error"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:queryHint="@string/search_counters" />
-
-            </androidx.cardview.widget.CardView>
+            <include
+                android:id="@+id/empty_message_layout"
+                layout="@layout/search_empty_message"
+                android:layout_width="@dimen/dimen_zero"
+                android:layout_height="@dimen/dimen_zero"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_bar_view"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/txt_connection_error"
                 android:layout_width="@dimen/dimen_zero"
                 android:layout_height="wrap_content"
-                android:text="@string/connection_error_description"
-                android:gravity="center"
-                android:textColor="@color/black"
                 android:layout_marginTop="@dimen/margin_small_1"
-                android:visibility="gone"
                 android:background="@android:color/holo_red_dark"
+                android:gravity="center"
                 android:paddingVertical="@dimen/margin_small_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_search"
+                android:text="@string/connection_error_description"
+                android:textColor="@color/black"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/rsv_counter_list"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_bar_view" />
 
             <com.cornershop.presentation.ui.customViews.RecyclerStatesView
                 android:id="@+id/rsv_counter_list"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_zero"
-                android:layout_marginTop="@dimen/margin_normal_2"
+                android:layout_marginTop="@dimen/margin_normal_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

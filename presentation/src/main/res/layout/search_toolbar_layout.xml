@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/toolbar_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small_1"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/margin_small_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/img_back_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingVertical="@dimen/margin_small_1"
+                android:paddingStart="10dp"
+                android:paddingEnd="@dimen/margin_small_1"
+                android:src="@drawable/ic_arrow_back" />
+
+            <EditText
+                android:id="@+id/edt_txt_search"
+                android:layout_width="@dimen/dimen_zero"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_small_1"
+                android:layout_marginEnd="@dimen/margin_normal_1"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="@string/search_counters"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_title_size" />
+
+            <ImageButton
+                android:id="@+id/img_clear_search_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingHorizontal="@dimen/margin_normal_1"
+                android:paddingVertical="@dimen/margin_small_1"
+                android:src="@drawable/ic_close_black" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/toolbar_bottom_stroke"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="@dimen/margin_small_1"
+            android:background="@drawable/border_bottom_gray"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_search" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

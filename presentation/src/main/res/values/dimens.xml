@@ -16,9 +16,11 @@
     <dimen name="fab_icon_padding">8dp</dimen>
 
     <dimen name="card_search_corner_radius">10dp</dimen>
+    <dimen name="card_search_elevation">5dp</dimen>
 
     <dimen name="text_normal_size">17sp</dimen>
     <dimen name="text_title_size">20sp</dimen>
+    <dimen name="text_empty_message_size">22sp</dimen>
 
     <dimen name="counter_item_count_max_width">35dp</dimen>
 

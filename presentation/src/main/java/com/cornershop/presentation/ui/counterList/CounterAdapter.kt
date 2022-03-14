@@ -93,6 +93,11 @@ class CounterAdapter(
         notifyDataSetChanged()
     }
 
+    fun filterCountersList(filteredCounters: MutableList<Counter>) {
+        this.items = filteredCounters
+        notifyDataSetChanged()
+    }
+
     fun getItemsList() = items
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

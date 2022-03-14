@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cornershop.domain.commons.Utils.COMMA_SEPARATOR
@@ -15,6 +16,7 @@ import com.cornershop.presentation.ui.baseViews.BaseFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.Locale
 
 class CounterListFragment : BaseFragment() {
 
@@ -143,6 +145,14 @@ class CounterListFragment : BaseFragment() {
                 }
             }
         }
+        binding.searchBarView.searchToolbarIsDisplayedLiveData.observe(viewLifecycleOwner) { isDisplayed ->
+            if (isDisplayed) {
+                binding.fabAddCounter.visibility = View.GONE
+            } else {
+                binding.fabAddCounter.visibility = View.VISIBLE
+                binding.emptyMessageLayout.root.visibility = View.GONE
+            }
+        }
     }
 
     private fun setUpViews() {
@@ -152,12 +162,12 @@ class CounterListFragment : BaseFragment() {
             )
         }
         binding.refreshCounters.setOnRefreshListener {
-            binding.cardSearch.visibility = View.VISIBLE
+            binding.searchBarView.visibility = View.VISIBLE
             binding.customToolbar.root.visibility = View.GONE
             loadData()
         }
         binding.customToolbar.imgCloseToolbar.setOnClickListener {
-            binding.cardSearch.visibility = View.VISIBLE
+            binding.searchBarView.visibility = View.VISIBLE
             binding.customToolbar.root.visibility = View.GONE
 
             loadData()
@@ -176,7 +186,7 @@ class CounterListFragment : BaseFragment() {
                         )
                         .setPositiveButton(it.getString(R.string.delete)) { dialog, _ ->
                             counterListViewModel.deleteCounterList(countersSelectedList)
-                            binding.cardSearch.visibility = View.VISIBLE
+                            binding.searchBarView.visibility = View.VISIBLE
                             binding.customToolbar.root.visibility = View.GONE
                             dialog.dismiss()
                         }
@@ -185,6 +195,17 @@ class CounterListFragment : BaseFragment() {
                         }
                         .show()
                 }
+            }
+        }
+        binding.searchBarView.getEditText().doOnTextChanged { text, _, _, _ ->
+            val filteredList = getFilteredList(text.toString())
+            if (filteredList.isEmpty()) {
+                if (text.toString().isNotEmpty()) {
+                    binding.emptyMessageLayout.root.visibility = View.VISIBLE
+                }
+            } else {
+                binding.emptyMessageLayout.root.visibility = View.GONE
+                counterAdapter.filterCountersList(filteredList)
             }
         }
     }
@@ -198,7 +219,7 @@ class CounterListFragment : BaseFragment() {
 
         counterAdapter.addListener(object : CounterAdapter.Listener {
             override fun itemLongClicked(counters: List<Counter>) {
-                binding.cardSearch.visibility = View.INVISIBLE
+                binding.searchBarView.visibility = View.INVISIBLE
                 binding.customToolbar.root.visibility = View.VISIBLE
 
                 binding.customToolbar.txtToolbarDeleteTitle.text = context?.getString(
@@ -213,7 +234,7 @@ class CounterListFragment : BaseFragment() {
                     counters.filter { it.isSelected }.size
                 )
                 if (counters.none { it.isSelected }) {
-                    binding.cardSearch.visibility = View.VISIBLE
+                    binding.searchBarView.visibility = View.VISIBLE
                     binding.customToolbar.root.visibility = View.GONE
 
                     loadData()
@@ -228,6 +249,19 @@ class CounterListFragment : BaseFragment() {
                 counterListViewModel.decrementTime(counter)
             }
         })
+    }
+
+    private fun getFilteredList(text: String): MutableList<Counter> {
+        val counterList = counterListViewModel.counterListLiveData.value
+        val filteredList = mutableListOf<Counter>()
+        counterList?.let {
+            for (c in counterList) {
+                if (c.title.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
+                    filteredList.add(c)
+                }
+            }
+        }
+        return filteredList
     }
 
     private fun loadData() {
