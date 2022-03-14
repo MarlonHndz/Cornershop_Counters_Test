@@ -17,6 +17,7 @@
 
     <dimen name="card_search_corner_radius">10dp</dimen>
     <dimen name="card_search_elevation">5dp</dimen>
+    <dimen name="card_search_disable_elevation">1dp</dimen>
 
     <dimen name="text_normal_size">17sp</dimen>
     <dimen name="text_title_size">20sp</dimen>

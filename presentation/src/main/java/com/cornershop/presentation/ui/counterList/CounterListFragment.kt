@@ -62,6 +62,7 @@ class CounterListFragment : BaseFragment() {
                 if (condition) {
                     binding.refreshCounters.isRefreshing = false
                     binding.rsvCounterList.showLoadingView()
+                    binding.searchBarView.disableSearchBar()
                 }
             }
 
@@ -69,6 +70,7 @@ class CounterListFragment : BaseFragment() {
                 if (condition) {
                     binding.refreshCounters.isRefreshing = false
                     binding.rsvCounterList.showEmptyView()
+                    binding.searchBarView.disableSearchBar()
                 }
             }
 
@@ -78,6 +80,7 @@ class CounterListFragment : BaseFragment() {
                     counterListLiveData.value?.let { counterList ->
                         binding.rsvCounterList.showRecyclerAndTotalsViews(counterList)
                     }
+                    binding.searchBarView.activateSearchBar()
                 }
             }
 
@@ -88,6 +91,7 @@ class CounterListFragment : BaseFragment() {
                         loadData()
                     }
                     binding.rsvCounterList.showErrorView()
+                    binding.searchBarView.disableSearchBar()
                 }
             }
 
@@ -98,6 +102,7 @@ class CounterListFragment : BaseFragment() {
                         binding.rsvCounterList.showRecyclerAndTotalsViews(counterList)
                     }
                     binding.txtConnectionError.visibility = View.VISIBLE
+                    binding.searchBarView.activateSearchBar()
                 } else {
                     binding.txtConnectionError.visibility = View.GONE
                 }
@@ -151,11 +156,13 @@ class CounterListFragment : BaseFragment() {
             } else {
                 binding.fabAddCounter.visibility = View.VISIBLE
                 binding.emptyMessageLayout.root.visibility = View.GONE
+                hideKeyboard()
             }
         }
     }
 
     private fun setUpViews() {
+        binding.refreshCounters.setColorSchemeResources(R.color.orange)
         binding.fabAddCounter.setOnClickListener {
             findNavController().navigate(
                 CounterListFragmentDirections.actionHomeListToCreateCounter()

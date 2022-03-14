@@ -46,6 +46,8 @@ class CardSearchView constructor(
         toolbarSearchBinding.imgClearSearchText.setOnClickListener { clearEditText() }
     }
 
+    fun getEditText() = toolbarSearchBinding.edtTxtSearch
+
     private fun showSearchView() {
         cardSearchBinding.root.visibility = View.INVISIBLE
         toolbarSearchBinding.root.visibility = View.VISIBLE
@@ -65,9 +67,27 @@ class CardSearchView constructor(
         toolbarSearchBinding.edtTxtSearch.text.clear()
     }
 
-    fun getEditText() = toolbarSearchBinding.edtTxtSearch
-
     private fun searchToolbarIsDisplayed(isDisplayed: Boolean) {
         _searchToolbarIsDisplayed.postValue(isDisplayed)
+    }
+
+    fun activateSearchBar() {
+        binding.root.setOnClickListener { showSearchView() }
+        with(cardSearchBinding) {
+            cardSearchContainer.cardElevation =
+                context.resources.getDimension(R.dimen.card_search_elevation)
+            txtCardSearchTitle.setTextColor(context.resources.getColor(R.color.gray))
+            imgCardSearch.setImageResource(R.drawable.ic_search)
+        }
+    }
+
+    fun disableSearchBar() {
+        binding.root.setOnClickListener {}
+        with(cardSearchBinding) {
+            cardSearchContainer.cardElevation =
+                context.resources.getDimension(R.dimen.card_search_disable_elevation)
+            txtCardSearchTitle.setTextColor(context.resources.getColor(R.color.light_gray))
+            imgCardSearch.setImageResource(R.drawable.ic_search_disable)
+        }
     }
 }
