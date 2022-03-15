@@ -54,15 +54,7 @@ class CounterListFragment : BaseFragment() {
 
             counterListLiveData.observe(viewLifecycleOwner) { counters ->
                 binding.refreshCounters.isRefreshing = false
-                var finalList = counters
-                if (binding.searchBarView.getEditText().text.isNotEmpty()) {
-                    finalList = getFilteredList(binding.searchBarView.getEditText().text.toString())
-                }
-                if (binding.searchBarView.searchToolbarIsDisplayedLiveData.value == false && finalList.none { it.isSelected }) {
-                    binding.fabAddCounter.visibility = View.VISIBLE
-                }
-                counterAdapter.replaceItems(finalList)
-                binding.rsvCounterList.setTotalsView(finalList)
+                showList(counters)
 
                 binding.searchBarView.visibility = View.VISIBLE
                 binding.customDeleteToolbar.root.visibility = View.GONE
@@ -99,7 +91,7 @@ class CounterListFragment : BaseFragment() {
                 if (condition) {
                     binding.refreshCounters.isRefreshing = false
                     counterListLiveData.value?.let { counterList ->
-                        binding.rsvCounterList.showRecyclerAndTotalsViews(counterList)
+                        showList(counterList)
                     }
                     binding.searchBarView.activateSearchBar()
                 }
@@ -120,7 +112,7 @@ class CounterListFragment : BaseFragment() {
                 if (condition) {
                     binding.refreshCounters.isRefreshing = false
                     counterListLiveData.value?.let { counterList ->
-                        binding.rsvCounterList.showRecyclerAndTotalsViews(counterList)
+                        showList(counterList)
                     }
                     binding.txtConnectionError.visibility = View.VISIBLE
                     binding.searchBarView.activateSearchBar()
@@ -183,6 +175,18 @@ class CounterListFragment : BaseFragment() {
                 hideSoftKeyboard()
             }
         }
+    }
+
+    private fun showList(counters: List<Counter>) {
+        var finalList = counters
+        if (binding.searchBarView.getEditText().text.isNotEmpty()) {
+            finalList = getFilteredList(binding.searchBarView.getEditText().text.toString())
+        }
+        if (binding.searchBarView.searchToolbarIsDisplayedLiveData.value == false && finalList.none { it.isSelected }) {
+            binding.fabAddCounter.visibility = View.VISIBLE
+        }
+        binding.rsvCounterList.showRecyclerAndTotalsViews(finalList)
+        counterAdapter.replaceItems(finalList)
     }
 
     private fun setUpViews() {
