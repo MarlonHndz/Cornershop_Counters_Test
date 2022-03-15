@@ -60,6 +60,9 @@ class CounterListFragment : BaseFragment() {
                 }
                 counterAdapter.replaceItems(finalList)
                 binding.rsvCounterList.setTotalsView(counters)
+
+                binding.searchBarView.visibility = View.VISIBLE
+                binding.customDeleteToolbar.root.visibility = View.GONE
             }
 
             showLoadingLiveDada.observe(viewLifecycleOwner) { condition ->
@@ -67,6 +70,17 @@ class CounterListFragment : BaseFragment() {
                     binding.refreshCounters.isRefreshing = false
                     binding.rsvCounterList.showLoadingView()
                     binding.searchBarView.disableSearchBar()
+                }
+            }
+
+            showDeleteLoadingLiveDada.observe(viewLifecycleOwner) { condition ->
+                if (condition) {
+                    binding.refreshCounters.isRefreshing = false
+                    binding.customDeleteToolbar.pbDeleteLoading.visibility = View.VISIBLE
+                    binding.customDeleteToolbar.imgDeleteToolbar.visibility = View.GONE
+                } else {
+                    binding.customDeleteToolbar.pbDeleteLoading.visibility = View.GONE
+                    binding.customDeleteToolbar.imgDeleteToolbar.visibility = View.VISIBLE
                 }
             }
 
@@ -175,16 +189,17 @@ class CounterListFragment : BaseFragment() {
         }
         binding.refreshCounters.setOnRefreshListener {
             binding.searchBarView.visibility = View.VISIBLE
-            binding.customToolbar.root.visibility = View.GONE
+            binding.customDeleteToolbar.root.visibility = View.GONE
             loadData()
         }
-        binding.customToolbar.imgCloseToolbar.setOnClickListener {
+        binding.customDeleteToolbar.imgCloseToolbar.setOnClickListener {
             binding.searchBarView.visibility = View.VISIBLE
-            binding.customToolbar.root.visibility = View.GONE
+            binding.customDeleteToolbar.root.visibility = View.GONE
+            binding.fabAddCounter.visibility = View.VISIBLE
 
             loadData()
         }
-        binding.customToolbar.imgDeleteToolbar.setOnClickListener {
+        binding.customDeleteToolbar.imgDeleteToolbar.setOnClickListener {
             val counterList = counterAdapter.getItemsList()
             if (counterList.any { it.isSelected }) {
                 val countersSelectedList = counterList.filter { counter -> counter.isSelected }
@@ -198,8 +213,6 @@ class CounterListFragment : BaseFragment() {
                         )
                         .setPositiveButton(it.getString(R.string.delete)) { dialog, _ ->
                             counterListViewModel.deleteCounterList(countersSelectedList)
-                            binding.searchBarView.visibility = View.VISIBLE
-                            binding.customToolbar.root.visibility = View.GONE
                             dialog.dismiss()
                         }
                         .setNegativeButton(it.getString(R.string.cancel)) { dialog, _ ->
@@ -232,22 +245,26 @@ class CounterListFragment : BaseFragment() {
         counterAdapter.addListener(object : CounterAdapter.Listener {
             override fun itemLongClicked(counters: List<Counter>) {
                 binding.searchBarView.visibility = View.INVISIBLE
-                binding.customToolbar.root.visibility = View.VISIBLE
+                binding.customDeleteToolbar.root.visibility = View.VISIBLE
+                binding.fabAddCounter.visibility = View.GONE
 
-                binding.customToolbar.txtToolbarDeleteTitle.text = context?.getString(
+                binding.customDeleteToolbar.txtToolbarDeleteTitle.text = context?.getString(
                     R.string.n_selected,
                     1
                 )
             }
 
             override fun itemSelectionClicked(counters: List<Counter>) {
-                binding.customToolbar.txtToolbarDeleteTitle.text = context?.getString(
+                binding.customDeleteToolbar.txtToolbarDeleteTitle.text = context?.getString(
                     R.string.n_selected,
                     counters.filter { it.isSelected }.size
                 )
                 if (counters.none { it.isSelected }) {
                     binding.searchBarView.visibility = View.VISIBLE
-                    binding.customToolbar.root.visibility = View.GONE
+                    binding.customDeleteToolbar.root.visibility = View.GONE
+                    if (binding.searchBarView.searchToolbarIsDisplayedLiveData.value == false) {
+                        binding.fabAddCounter.visibility = View.VISIBLE
+                    }
 
                     loadData()
                 }

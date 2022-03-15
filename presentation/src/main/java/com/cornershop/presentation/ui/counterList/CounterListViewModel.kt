@@ -38,6 +38,11 @@ class CounterListViewModel(
             serviceHandler?.status == ServiceStatus.LOADING && (serviceHandler.serviceCalled == ServiceCalled.COUNTER_GET)
         }.asLiveData()
 
+    val showDeleteLoadingLiveDada: LiveData<Boolean> =
+        combine(counterListFlow, serviceStatusFlow) { _, serviceHandler ->
+            serviceHandler?.status == ServiceStatus.LOADING && (serviceHandler.serviceCalled == ServiceCalled.COUNTER_DELETE)
+        }.asLiveData()
+
     val showEmptyViewLiveData: LiveData<Boolean> =
         combine(counterListFlow, serviceStatusFlow) { counters, serviceHandler ->
             serviceHandler?.status == ServiceStatus.SUCCESS && counters.isEmpty()
@@ -55,7 +60,7 @@ class CounterListViewModel(
 
     val showErrorWithListViewLiveData: LiveData<Boolean> =
         combine(counterListFlow, serviceStatusFlow) { counters, serviceHandler ->
-            (serviceHandler.let { it!!.isServiceGlobalError() }) && counters.isNotEmpty()
+            (serviceHandler.let { it!!.isServiceGlobalError() }) && counters.isNotEmpty() && (serviceHandler?.serviceCalled != ServiceCalled.COUNTER_DELETE)
         }.asLiveData()
 
     val showIncOrDecErrorViewLiveData: LiveData<Boolean> =

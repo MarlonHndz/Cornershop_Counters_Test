@@ -44,6 +44,8 @@ class CardSearchView constructor(
         toolbarSearchBinding.imgBackArrow.setOnClickListener { searchBackArrow() }
 
         toolbarSearchBinding.imgClearSearchText.setOnClickListener { clearEditText() }
+
+        searchToolbarIsDisplayed(false)
     }
 
     fun getEditText() = toolbarSearchBinding.edtTxtSearch

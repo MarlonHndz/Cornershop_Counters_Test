@@ -60,6 +60,18 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ProgressBar
+                    android:id="@+id/pb_delete_loading"
+                    android:layout_width="@dimen/save_loading_size"
+                    android:layout_height="@dimen/save_loading_size"
+                    android:layout_marginEnd="@dimen/margin_small_1"
+                    android:indeterminateTint="@color/orange"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
