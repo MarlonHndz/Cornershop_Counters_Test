@@ -84,6 +84,7 @@ class CardSearchView constructor(
     }
 
     fun disableSearchBar() {
+        searchBackArrow()
         binding.root.setOnClickListener {}
         with(cardSearchBinding) {
             cardSearchContainer.cardElevation =

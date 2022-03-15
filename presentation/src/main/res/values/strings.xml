@@ -24,8 +24,7 @@
     <string name="get_started">Get started</string>
     <string name="no_counters">No counters yet</string>
     <string name="no_results">No results</string>
-    <string name="no_counters_phrase">“When I started counting my blessings, my whole life turned around.”
-—Willie Nelson</string>
+    <string name="no_counters_phrase">“When I started counting my blessings, my whole life turned around.” \n—Willie Nelson</string>
     <string name="search_counters">Search Counters</string>
     <string name="add_counters">Add counters</string>
     <string name="n_items">%d items</string>

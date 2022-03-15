@@ -181,6 +181,7 @@ class CounterListFragment : BaseFragment() {
         var finalList = counters
         if (binding.searchBarView.getEditText().text.isNotEmpty()) {
             finalList = getFilteredList(binding.searchBarView.getEditText().text.toString())
+            if (finalList.isEmpty()) binding.emptyMessageLayout.root.visibility = View.VISIBLE
         }
         if (binding.searchBarView.searchToolbarIsDisplayedLiveData.value == false && finalList.none { it.isSelected }) {
             binding.fabAddCounter.visibility = View.VISIBLE
@@ -204,7 +205,9 @@ class CounterListFragment : BaseFragment() {
         binding.customDeleteToolbar.imgCloseToolbar.setOnClickListener {
             binding.searchBarView.visibility = View.VISIBLE
             binding.customDeleteToolbar.root.visibility = View.GONE
-            loadData()
+            val currentList = counterListViewModel.counterListLiveData.value
+            val newList = currentList?.let { it.onEach { counter -> counter.isSelected = false } }
+            showList(newList!!)
         }
         binding.customDeleteToolbar.imgDeleteToolbar.setOnClickListener {
             val counterList = counterAdapter.getItemsList()

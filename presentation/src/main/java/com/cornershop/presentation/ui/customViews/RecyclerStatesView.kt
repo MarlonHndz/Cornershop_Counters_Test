@@ -81,8 +81,10 @@ class RecyclerStatesView constructor(
     }
 
     fun showRecyclerAndTotalsViews(counters: List<Counter>) {
-        showRecyclerView()
-        setTotalsView(counters)
+        if (counters.isNotEmpty()) {
+            showRecyclerView()
+            setTotalsView(counters)
+        }
     }
 
     fun setTotalsView(counters: List<Counter>) {

@@ -37,6 +37,7 @@
                 android:layout_marginStart="@dimen/margin_small_1"
                 android:layout_marginEnd="@dimen/margin_normal_1"
                 android:layout_weight="1"
+                android:paddingVertical="@dimen/margin_small_1"
                 android:background="@android:color/transparent"
                 android:hint="@string/search_counters"
                 android:inputType="text"
