@@ -58,8 +58,11 @@ class CounterListFragment : BaseFragment() {
                 if (binding.searchBarView.getEditText().text.isNotEmpty()) {
                     finalList = getFilteredList(binding.searchBarView.getEditText().text.toString())
                 }
+                if (binding.searchBarView.searchToolbarIsDisplayedLiveData.value == false && finalList.none { it.isSelected }) {
+                    binding.fabAddCounter.visibility = View.VISIBLE
+                }
                 counterAdapter.replaceItems(finalList)
-                binding.rsvCounterList.setTotalsView(counters)
+                binding.rsvCounterList.setTotalsView(finalList)
 
                 binding.searchBarView.visibility = View.VISIBLE
                 binding.customDeleteToolbar.root.visibility = View.GONE
@@ -195,8 +198,6 @@ class CounterListFragment : BaseFragment() {
         binding.customDeleteToolbar.imgCloseToolbar.setOnClickListener {
             binding.searchBarView.visibility = View.VISIBLE
             binding.customDeleteToolbar.root.visibility = View.GONE
-            binding.fabAddCounter.visibility = View.VISIBLE
-
             loadData()
         }
         binding.customDeleteToolbar.imgDeleteToolbar.setOnClickListener {
@@ -265,8 +266,6 @@ class CounterListFragment : BaseFragment() {
                     if (binding.searchBarView.searchToolbarIsDisplayedLiveData.value == false) {
                         binding.fabAddCounter.visibility = View.VISIBLE
                     }
-
-                    loadData()
                 }
             }
 
