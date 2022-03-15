@@ -48,6 +48,18 @@
                 app:layout_constraintTop_toBottomOf="@id/search_bar_view"
                 tools:visibility="visible" />
 
+            <View
+                android:id="@+id/transparent_gray_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_zero"
+                android:translationZ="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                android:background="@drawable/transparent_gray_view"
+                app:layout_constraintTop_toBottomOf="@id/search_bar_view"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
             <TextView
                 android:id="@+id/txt_connection_error"
                 android:layout_width="@dimen/dimen_zero"
