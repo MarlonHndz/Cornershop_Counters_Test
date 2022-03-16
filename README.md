@@ -18,8 +18,23 @@ Android app for counting things.
 ### Code Quiality
 - **Code Style**: Added task using [ktlint](https://github.com/pinterest/ktlint) to keep a good code styel. The code style task is run always before the build task.
 
+- **Unit Testing**: Created unit tests for the following modules using Mockito and Junit.
+	- **data** module
+	- **remotedatasource** module
+	- **domain** module
+
 ### View retrieval strategy 
 I'm using **Android DataBinding** and **View Binding**
 
+### TODO
+- **Instrumentation test**: Created instrumentation test for testing the Room database in **localdatasource** module.
+
 ## Architecture
 - Using **Clean Architechture** for the whole application and using **MVVM** for the presentation layer.
+![CleanArch](https://user-images.githubusercontent.com/16215046/158522837-2fcbe62d-f7be-4e5a-8f27-9a7f8450d42e.png)
+
+## Evidence
+- Here's a video using the app
+
+https://user-images.githubusercontent.com/16215046/158523884-5945a8d0-562e-424d-9d25-b476734195b8.mp4
+
