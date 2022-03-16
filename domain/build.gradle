@@ -45,5 +45,8 @@ dependencies {
     implementation Dependencies.koinCore
 
     // Test
+    testImplementation project(path: ':testing-commons')
     testImplementation TestDependencies.jUnit
+    testImplementation TestDependencies.mockito3
+    testImplementation TestDependencies.coroutinesTesting
 }

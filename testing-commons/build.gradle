@@ -1,7 +1,7 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply from: '../ktlint.gradle'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
 
 android {
     compileSdk 30
@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         minSdk 23
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -34,28 +34,20 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(path: ':data')
     implementation project(path: ':domain')
+    implementation project(path: ':data')
+    implementation project(path: ':remotedatasource')
 
     // Basics
     implementation Dependencies.kotlin
     implementation Dependencies.coreKtx
     implementation Dependencies.appCompat
 
-    // DI
-    implementation Dependencies.koinAndroid
-
     // Retrofit
     implementation Dependencies.retrofit
-    implementation Dependencies.retrofitGsonConverter
 
-    // Background Strategy
-    implementation Dependencies.coroutines
-
-    // Test
-    testImplementation project(path: ':testing-commons')
-    testImplementation TestDependencies.jUnit
-    testImplementation TestDependencies.mockito3
-    testImplementation TestDependencies.coroutinesTesting
+    // Testing
+    implementation TestDependencies.jUnit
+    implementation TestDependencies.mockito3
     androidTestImplementation TestDependencies.jUnitExtAndroid
 }
