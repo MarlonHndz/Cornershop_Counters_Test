@@ -1,6 +1,9 @@
 # Cornershop_Counters_Test
 Android app for counting things.
 
+### **Note:** 
+Remember to **update the IP** where your server is located or launched in order to connect to it. You can make that change in the [**URLs file**](https://github.com/MarlonHndz/Cornershop_Counters_Test/blob/master/remotedatasource/src/main/java/com/cornershop/remotedatasource/api/Urls.kt) by changing the value of **BASE_URL**. 
+
 ## Technologies
 
 ### Libraries
